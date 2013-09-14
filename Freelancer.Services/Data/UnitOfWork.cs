@@ -12,7 +12,7 @@ namespace Freelancer.Services.Data
         public IRepository<Job> jobRepository { get; private set; }
         public IRepository<Tag> tagRepository { get; private set; }
         //public IRepository<Difficulty> difficultyRepository { get; private set; }
-        //public IRepository<Category> categoryRepository { get; private set; }
+        public IRepository<Category> categoryRepository { get; private set; }
         private bool disposed = false;
 
         public UnitOfWork()
@@ -21,7 +21,7 @@ namespace Freelancer.Services.Data
             this.jobRepository = new EfRepository<Job>(this.context);
             this.tagRepository = new EfRepository<Tag>(this.context);
             //this.difficultyRepository = new EfRepository<Difficulty>(this.context);
-            //this.categoryRepository = new EfRepository<Category>(this.context);
+            this.categoryRepository = new EfRepository<Category>(this.context);
         }
 
         public void Save()

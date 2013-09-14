@@ -31,7 +31,7 @@ namespace CodeFirst.Model
         [StringLength(50)]
         public string AccessToken { get; set; } 
         
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
 
         public string Mail { get; set; }
 

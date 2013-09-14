@@ -39,7 +39,7 @@ namespace Freelancer.Services.Controllers
                     Location = x.Location,
                     Mail = x.Mail,
                     Phone = x.Phone,
-                    UserType = x.UserType,
+                    //UserType = x.UserType,
                 });
 
                 return userModels;
@@ -142,7 +142,7 @@ namespace Freelancer.Services.Controllers
                 }
 
                 //register all new users as clients
-                user.UserType = UserType.Client;
+                //user.UserType = UserType.Client;
                 this.unitOfWork.userRepository.Add(user);
                 user.AccessToken = SessionGenerator.GenerateSessionKey(user.Id);
                 this.unitOfWork.userRepository.Update(user.Id, user);
@@ -160,7 +160,8 @@ namespace Freelancer.Services.Controllers
             var messageResponse = this.TryExecuteOperation(() =>
             {
                 var user =
-                    this.unitOfWork.userRepository.All().SingleOrDefault(x => x.AccessToken == userModel.SessionKey);
+                    this.unitOfWork.userRepository.All()
+                    .SingleOrDefault(x => x.AccessToken == userModel.AccessToken);
                 if (user == null)
                 {
                     throw new ArgumentException("User is missing or not logged in!");
@@ -169,41 +170,41 @@ namespace Freelancer.Services.Controllers
                 user.AccessToken = null;
                 this.unitOfWork.userRepository.Update(user.Id, user);
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, user);
+                return this.Request.CreateResponse(HttpStatusCode.OK);//, user);
             });
 
             return messageResponse;
         }
 
-        [HttpDelete]
-        [ActionName("delete")]
-        public HttpResponseMessage DeleteUser(int id,
-            [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
-        {
-            var messageResponse = this.TryExecuteOperation<HttpResponseMessage>(() =>
-            {
-                var user = unitOfWork.userRepository.All().Single(x => x.AccessToken == sessionKey);
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User has not logged in!");
-                }
-                if (user.UserType != UserType.Administrator)
-                {
-                    throw new InvalidOperationException("Only administrators can delete users!");
-                }
+        //[HttpDelete]
+        //[ActionName("delete")]
+        //public HttpResponseMessage DeleteUser(int id,
+        //    [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        //{
+        //    var messageResponse = this.TryExecuteOperation<HttpResponseMessage>(() =>
+        //    {
+        //        var user = unitOfWork.userRepository.All().Single(x => x.AccessToken == sessionKey);
+        //        if (user == null)
+        //        {
+        //            throw new InvalidOperationException("User has not logged in!");
+        //        }
+        //        //if (user.UserType != UserType.Administrator)
+        //        //{
+        //        //    throw new InvalidOperationException("Only administrators can delete users!");
+        //        //}
 
-                //var userCars = this.unitOfWork.carRepository.All().Where(x => x.Owner.Id == id).ToList();
+        //        //var userCars = this.unitOfWork.carRepository.All().Where(x => x.Owner.Id == id).ToList();
 
-                //for (int i = 0; i < userCars.Count(); i++)
-                //{
-                //    unitOfWork.carRepository.Delete(userCars[i].Id);
-                //}
+        //        //for (int i = 0; i < userCars.Count(); i++)
+        //        //{
+        //        //    unitOfWork.carRepository.Delete(userCars[i].Id);
+        //        //}
 
-                unitOfWork.userRepository.Delete(id);
-                return Request.CreateResponse(HttpStatusCode.OK);
-            });
+        //        unitOfWork.userRepository.Delete(id);
+        //        return Request.CreateResponse(HttpStatusCode.OK);
+        //    });
 
-            return messageResponse;
-        }
+        //    return messageResponse;
+        //}
     }
 }

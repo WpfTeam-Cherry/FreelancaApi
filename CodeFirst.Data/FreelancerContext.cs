@@ -18,6 +18,8 @@ namespace CodeFirst.Data
 
         public DbSet<Job> Jobs { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         //public DbSet<Difficulty> Difficulty { get; set; }
 
         //public DbSet<Category> Category { get; set; }

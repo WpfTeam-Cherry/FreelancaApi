@@ -38,10 +38,6 @@ namespace CodeFirst.Model
 
         public Job()
         {
-            if (this.Category == null)
-            {
-                this.Category = Category.Other;
-            }
             this.Tasks = new HashSet<Task>();
             this.JobTags = new HashSet<Tag>();
         }

@@ -5,12 +5,17 @@ using System.Text;
 
 namespace CodeFirst.Model
 {
-    public enum Category
+    public class Category
     {
-        Other,
-        Cat1,
-        Cat2,
-        Cat3,
-        Cat4
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public virtual ICollection<Job> Jobs { get; set; }
+
+        public Category()
+        {
+            this.Jobs = new HashSet<Job>();
+        }
     }
 }

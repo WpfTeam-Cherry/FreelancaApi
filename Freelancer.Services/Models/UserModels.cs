@@ -23,7 +23,7 @@ namespace Freelancer.Services.Models
 
         public string Location { get; set; }
 
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
 
         static UserRegisterRequestModel()
         {
@@ -32,7 +32,7 @@ namespace Freelancer.Services.Models
                 Username = x.Username,
                 DisplayName = x.DisplayName,
                 AuthCode = x.AuthCode,
-                UserType = x.UserType,
+                //UserType = x.UserType,
                 Mail = x.Mail,
                 Phone = x.Phone,
                 Location = x.Location
@@ -68,14 +68,14 @@ namespace Freelancer.Services.Models
 
         public string AuthCode { get; set; }
 
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
 
         static UserLoginRequestModel()
         {
             ToEntity = x => new User { 
                 Username = x.Username, 
                 AuthCode = x.AuthCode, 
-                UserType = x.UserType 
+                //UserType = x.UserType 
             };
         }
     }
@@ -91,8 +91,8 @@ namespace Freelancer.Services.Models
         [DataMember(Name = "accessToken")]
         public string AccessToken { get; set; }
 
-        [DataMember(Name = "userType")]
-        public UserType UserType { get; set; }
+        //[DataMember(Name = "userType")]
+        //public UserType UserType { get; set; }
 
         static UserLoginResponseModel()
         {
@@ -100,14 +100,14 @@ namespace Freelancer.Services.Models
             {
                 DisplayName = x.DisplayName,
                 AccessToken = x.AccessToken,
-                UserType = x.UserType
+                //UserType = x.UserType
             };
         }
     }
 
     public class UserLogoutRequestModel
     {
-        public string SessionKey { get; set; }
+        public string AccessToken { get; set; }
     }
 
     public class UserModel
@@ -118,7 +118,7 @@ namespace Freelancer.Services.Models
 
         public string DisplayName { get; set; }
 
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
 
         public string Mail { get; set; }
 
